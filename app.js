@@ -60,9 +60,8 @@ new mongodb.Db('pumped', config.dbconnection, { w: 1, keepAlive: 1 }).open(funct
   //app.get('/users', user.list);
   
   app.locals.helpers = helpers;
-  http.createServer(app).listen(app.get('port'), function() {
-    console.log("Express server listening on port " + app.get('port'));
-    console.log('got here');
+  http.createServer(app).listen(config.port, config.ipaddr, function() {
+    console.log("Express server listening on port " + config.port);
   });
 });
 
