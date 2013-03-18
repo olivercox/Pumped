@@ -105,11 +105,17 @@ module.exports = {
     
     // Execute map reduce and return results inline
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
+<<<<<<< HEAD
       if(results) {
         results.find().toArray(function(err, results) {
          callback(err, results); 
         });
       }
+=======
+      results.find().toArray(function(err, results) {
+       callback(err, results); 
+      });
+>>>>>>> 654fb88dcac8b43d6b09c30a505f8287251946e7
     });
   },
   getTeamLeaderboard: function(callback) {
@@ -129,11 +135,17 @@ module.exports = {
     
     // Execute map reduce and return results inline
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
+<<<<<<< HEAD
       if(results) {
         results.find().toArray(function(err, results) {
          callback(err, results); 
         });
       }
+=======
+      results.find().toArray(function(err, results) {
+       callback(err, results); 
+      });
+>>>>>>> 654fb88dcac8b43d6b09c30a505f8287251946e7
     });
   }
 }
