@@ -13,5 +13,5 @@
     "dateformat": "~1.0.6-1.2.3",
     "connect-flash": "~0.1.0"
   },
-  "main": "app.js"
+  "main": "server.js"
 }
