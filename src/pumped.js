@@ -109,7 +109,10 @@ module.exports = {
         results.find().toArray(function(err, results) {
          callback(err, results); 
         });
+      } else {
+        callback(err, null);
       }
+    });
   },
   getTeamLeaderboard: function(callback) {
     var teamlogs = mongoClient.collection('teamlogs');
@@ -132,6 +135,8 @@ module.exports = {
         results.find().toArray(function(err, results) {
          callback(err, results); 
         });
+      } else {
+        callback(err, null);
       }
     });
   }
