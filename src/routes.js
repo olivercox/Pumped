@@ -102,7 +102,7 @@ exports.addLog = function(req, res) {
     req.flash('errors', e.message); //Need to output these errors to the screen for the user
     return res.redirect('/private');
   }
-  pumped.saveLog({ date: date, logtype: req.body.logtype, mileage: req.body.mileage,
+  pumped.saveLog({ date: date, logtype: req.body.logtype, mileage: parseInt(req.body.mileage),
                   teamname: req.session.user.teamname, username: req.session.user.username },
                 function(err, result) {
                   if(err) {

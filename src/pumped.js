@@ -107,7 +107,11 @@ module.exports = {
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
       if(results) {
         results.find().toArray(function(err, results) {
-         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
+         callback(err, results.sort(function (a, b) {
+              if (a.mileage < b.mileage) return 1;
+              if (b.mileage < a.mileage) return -1;
+              return 0;
+          })); 
         });
       } else {
         callback(err, []);
@@ -132,7 +136,11 @@ module.exports = {
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
       if(results) {
         results.find().toArray(function(err, results) {
-         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
+         callback(err, results.sort(function (a, b) {
+              if (a.mileage < b.mileage) return 1;
+              if (b.mileage < a.mileage) return -1;
+              return 0;
+          })); 
         });
       } else {
         callback(err, []);
@@ -157,7 +165,11 @@ module.exports = {
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
       if(results) {
         results.find().toArray(function(err, results) {
-         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
+         callback(err, results.sort(function (a, b) {
+              if (a.mileage < b.mileage) return 1;
+              if (b.mileage < a.mileage) return -1;
+              return 0;
+          })); 
         });
       } else {
         callback(err, []);
@@ -166,8 +178,9 @@ module.exports = {
   },
   getIronmanLeaderboard: function(callback) {
     var teamlogs = mongoClient.collection('teamlogs');
-    teamlogs.find({}, { limit: 10, skip: 0, sort: [['mileage', -1]] }).toArray(function (err, results) {
-        callback(err, results);
+    teamlogs.find({}, { limit: 10, sort: {'mileage': -1}}).toArray(function (err, results) {  
+      if(results) callback(err, results);
+      else callback(err,[]);
     });
   }
 }
