@@ -1,0 +1,35 @@
+@media (min-width: 980px) {
+  .navbar-fixed-top + * {
+    margin-top: 60px;
+  }
+}
+.main-features {
+  margin-top: 10px;
+}
+.header .nav > li {
+  line-height: 30px;
+}
+.header .brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.header .navbar-inner {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.regtype-btn {
+  height: 80px;
+  margin: 10px;
+  line-height: 70px;
+  font-size: 26px;
+  font-weight: bold;
+}
+.form-actions {
+  text-align: right;
+}
+.well-plain {
+  background: none;
+}
+.selectboxit-container {
+  margin-bottom: 10px;
+}
