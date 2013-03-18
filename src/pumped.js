@@ -1,5 +1,6 @@
-var mongodb = require('mongodb');
-var BSON = mongodb.BSONPure;
+var mongodb = require('mongodb'),
+    underscore = require('underscore'),
+    BSON = mongodb.BSONPure;
 
 module.exports = {
   checkUserNotExists: function(user, callback) {
@@ -93,7 +94,6 @@ module.exports = {
      // Map function
     var map = function() { emit(this.teamname, this.mileage); };
     // Reduce function
-    // Reduce function
       var reduce = function(k, v){
         printjson(v);
           count = 0;
@@ -107,7 +107,7 @@ module.exports = {
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
       if(results) {
         results.find().toArray(function(err, results) {
-         callback(err, results); 
+         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
         });
       } else {
         callback(err, []);
@@ -119,7 +119,6 @@ module.exports = {
      // Map function
     var map = function() { emit(this.username, this.mileage); };
     // Reduce function
-    // Reduce function
       var reduce = function(k, v){
         printjson(v);
           count = 0;
@@ -133,11 +132,42 @@ module.exports = {
     teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
       if(results) {
         results.find().toArray(function(err, results) {
-         callback(err, results); 
+         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
         });
       } else {
         callback(err, []);
       }
+    });
+  },
+  getCommittedLeaderboard: function(callback) {
+    var teamlogs = mongoClient.collection('teamlogs');
+     // Map function
+    var map = function() { emit(this.username, 1); };
+    // Reduce function
+      var reduce = function(k, v){
+        printjson(v);
+          count = 0;
+          for(i = 0; i < v.length; i++) {
+              count += v[i];
+          }
+          return count;
+      }
+    
+    // Execute map reduce and return results inline
+    teamlogs.mapReduce(map, reduce, {out: {replace : 'tempCollection'}}, function(err, results) {
+      if(results) {
+        results.find().toArray(function(err, results) {
+         callback(err, underscore.sortBy(results, function(item){ return item.value; })); 
+        });
+      } else {
+        callback(err, []);
+      }
+    });
+  },
+  getIronmanLeaderboard: function(callback) {
+    var teamlogs = mongoClient.collection('teamlogs');
+    teamlogs.find({}, { limit: 10, skip: 0, sort: [['mileage', -1]] }).toArray(function (err, results) {
+        callback(err, results);
     });
   }
 }

@@ -16,9 +16,19 @@
     <script src="/js/pumped.js"></script>
   </head>
   <body>
+  <div id="wrap">
     <% include ../snippets/header %>
+    <div class="container" id="main-container">
     <% include ../snippets/message_center %>
-<%- body -%>
+    <%- body -%>
+    </div>
+    <div id="push"></div>
+  </div>
+  <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2013 Pumped</p>
+      </div>
+    </div>
 <script>
   $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 </script>

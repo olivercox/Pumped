@@ -56,6 +56,8 @@ new mongodb.Db('pumped', config.dbconnection, { w: 1, keepAlive: 1 }).open(funct
   app.get('/private', routes.private);
   app.get('/private/choose-team', routes.chooseTeam);
   app.post('/private/add-log', routes.addLog);
+  app.get('/about', routes.about);
+  app.get('/stats', routes.stats);
   
   //app.get('/users', user.list);
   

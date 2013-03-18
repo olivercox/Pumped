@@ -6,11 +6,51 @@ var locals = require('../locals'),
     routes = require('./routes');
 
 exports.index = function(req, res) {
-  res.render('index', { title: 'Home', errors: req.flash('errors'), messages: req.flash('messages') });
+  pumped.getLeaderboard(function(err, leaderboard) {
+          console.log(leaderboard);
+          if(err) {
+            req.flash('errors', 'There was an error retrieving leaderboard');
+          }
+          pumped.getIronmanLeaderboard(function(err, ironmanLeaderboard) {
+            console.log(ironmanLeaderboard);
+            if(err) {
+              req.flash('errors', 'There was an error retrieving ironman leaderboard');
+            }
+            pumped.getCommittedLeaderboard(function(err, commitmentLeaderboard) {
+              console.log(commitmentLeaderboard);
+              if(err) {
+                req.flash('errors', 'There was an error retrieving commitment leaderboard');
+              }
+              res.render('index', { title: 'Home', 
+                errors: req.flash('errors'), messages: req.flash('messages'),
+                leaderboard: leaderboard, ironmanLeaderboard: ironmanLeaderboard, commitmentLeaderboard: commitmentLeaderboard});
+           });
+        });
+    });
 };
 
 exports.stats = function(req, res) {
-  res.render('stats', { title: 'Race Stats', errors: req.flash('errors'), messages: req.flash('messages') });
+  pumped.getLeaderboard(function(err, leaderboard) {
+          console.log(leaderboard);
+          if(err) {
+            req.flash('errors', 'There was an error retrieving leaderboard');
+          }
+          pumped.getIronmanLeaderboard(function(err, ironmanLeaderboard) {
+            console.log(ironmanLeaderboard);
+            if(err) {
+              req.flash('errors', 'There was an error retrieving ironman leaderboard');
+            }
+            pumped.getCommittedLeaderboard(function(err, commitmentLeaderboard) {
+              console.log(commitmentLeaderboard);
+              if(err) {
+                req.flash('errors', 'There was an error retrieving commitment leaderboard');
+              }
+              res.render('stats', { title: 'Race Stats', 
+                errors: req.flash('errors'), messages: req.flash('messages'),
+                leaderboard: leaderboard, ironmanLeaderboard: ironmanLeaderboard, commitmentLeaderboard: commitmentLeaderboard});
+           });
+        });
+    });
 };
 
 exports.about = function(req, res) {
@@ -33,12 +73,12 @@ exports.private = function(req, res) {
         pumped.getLeaderboard(function(err, leaderboard) {
           console.log(leaderboard);
           if(err) {
-            req.flash('errors', 'There was an error retrieving activity logs');
+            req.flash('errors', 'There was an error retrieving leaderboard');
           }
           pumped.getTeamLeaderboard(function(err, teamLeaderboard) {
             console.log(teamLeaderboard);
             if(err) {
-              req.flash('errors', 'There was an error retrieving activity logs');
+              req.flash('errors', 'There was an error retrieving team leaderboard');
             }
             res.render('./private/private', { title: 'Team Member Area', logs: logs
             , defaultDate: dateFormat(new Date(), "dd/mm/yyyy"), 
