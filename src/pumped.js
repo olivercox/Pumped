@@ -110,7 +110,7 @@ module.exports = {
          callback(err, results); 
         });
       } else {
-        callback(err, null);
+        callback(err, []);
       }
     });
   },
@@ -136,7 +136,7 @@ module.exports = {
          callback(err, results); 
         });
       } else {
-        callback(err, null);
+        callback(err, []);
       }
     });
   }
