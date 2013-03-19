@@ -4,6 +4,6 @@ module.exports = {
                                    , process.env.OPENSHIFT_MONGODB_DB_PORT || 27017, {}),
   ipaddr: process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1",
   port: process.env.OPENSHIFT_NODEJS_PORT || 3000,
-  dbUser: 'admin',
-  dbPass: 'wyJE3UHJFGrZ'
+  dbUser: process.env.OPENSHIFT_MONGODB_DB || 'admin',
+  dbPass: process.env.OPENSHIFT_MONGODB_DB || 'password'
 }
